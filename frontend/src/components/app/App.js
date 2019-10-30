@@ -8,6 +8,7 @@ import {CookiesProvider} from 'react-cookie';
 
 import About from '../../routes/about'
 import Main from '../../routes/main'
+import NavBar from "../NavBar";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,6 +19,7 @@ function App() {
         <div className="App">
             <div className="backimage">
                 <Router>
+                    <NavBar/>
                     <Switch>
                         <Route path="/" exact component={Main}/>
                         <Route path="/about" component={About}/>

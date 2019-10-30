@@ -39,7 +39,7 @@ const SignUp = ({show, handleClose, logIn}) => {
 
     return <Modal show={show} onHide={handleClose} className="modal" >
         <Modal.Body>
-            <div className="modal-title">Log In</div>
+            <div className="modal-title">Sign Up</div>
             <div className="input-container">
                 <span className="input-placeholder">First Name:</span>
                 <input type="text" className="input-field" onChange={(e) => setFirstName(e.target.value)} value={firstName}/>

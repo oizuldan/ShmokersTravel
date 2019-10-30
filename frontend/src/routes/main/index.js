@@ -7,7 +7,6 @@ import './index.css';
 
 const Main = () => {
     return <div className="main">
-        <NavBar/>
         <div className="vertically-centered">
             <SearchForm/>
             <div className="promo-text">
