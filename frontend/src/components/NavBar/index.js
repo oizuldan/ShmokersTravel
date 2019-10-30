@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useCookies } from 'react-cookie';
+import {Link} from "react-router-dom";
 
 import Login from "../Login";
 import SignUp from "../SignUp";
@@ -29,7 +30,7 @@ const NavBar = () => {
 
     return <nav className="navbar">
         <ul className="menu">
-            <li className="menu-item">About</li>
+            <li className="menu-item"><Link to="about" class="link" style={{textDecoration: 'none', color: 'white'}}>About</Link></li>
             <li className="menu-item">Promos</li>
         </ul>
         <h1 className="logo" >Shmoker Travel</h1>

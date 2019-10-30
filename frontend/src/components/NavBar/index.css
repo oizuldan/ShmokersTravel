@@ -4,6 +4,8 @@
     align-items: center;
     border-bottom: #E7E7F2 1px solid;
     color: #ffffff;
+    width: 80%;
+    margin: auto;
 }
 
 .menu-item {

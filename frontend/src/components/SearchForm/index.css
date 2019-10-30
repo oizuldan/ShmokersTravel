@@ -41,3 +41,20 @@
     line-height: 21px;
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 900px) {
+    .search-container {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .but-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .but-wrapper {
+        margin: 15px 0;
+    }
+}
