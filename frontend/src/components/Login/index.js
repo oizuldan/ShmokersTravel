@@ -35,7 +35,12 @@ const Login = ({show, handleClose, logIn}) => {
         setError(errors);
     };
 
-    return <Modal show={show} onHide={handleClose} className="modal" >
+    const onHide = () => {
+        setError([]);
+        handleClose()
+    };
+
+    return <Modal show={show} onHide={onHide} className="modal" >
         <Modal.Body>
             <div className="modal-title">Log In</div>
             <div className="input-container">

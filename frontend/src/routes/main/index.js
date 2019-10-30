@@ -1,6 +1,5 @@
 import React from 'react';
 
-import NavBar from "../../components/NavBar";
 import SearchForm from "../../components/SearchForm";
 
 import './index.css';
