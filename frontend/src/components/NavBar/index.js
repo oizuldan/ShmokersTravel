@@ -10,6 +10,7 @@ import './index.css';
 const NavBar = () => {
     const [showLogin, setShowLogin] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const [cookies, setCookie] = useCookies(['isAuthorized']);
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -25,22 +26,28 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        cookies.isAuthorized === "true" && setIsAuthorized(true);
+        cookies.isAuthorized === "true" && logIn();
     });
 
     return <nav className="navbar">
-        <ul className="menu">
-            <li className="menu-item"><Link to="about" class="link" style={{textDecoration: 'none', color: 'white'}}>About</Link></li>
+        <ul className={isMobile ? "responsive-menu" : "menu"} onClick={() => isMobile && setIsMobile(false)}>
+            <li className="menu-item"><Link to="about" className="link" >About</Link></li>
             <li className="menu-item">Promos</li>
-        </ul>
-        <h1 className="logo" >Shmoker Travel</h1>
-        <ul className="menu">
+            <Link to={''} className="link">
+                <h1 className="logo" >Shmokers Travel</h1>
+            </Link>
             {isAuthorized ? <><li className="menu-item" >Profile</li>
                     <li className="menu-item" onClick={logOut}>Log Out</li></> :
                 <><li className="menu-item" onClick={() => setShowSignUp(true)}>Sign Up</li>
                 <li className="menu-item" onClick={() => setShowLogin(true)}>Log In</li></>
             }
         </ul>
+        <Link to={''} className='link'><h1 className="logo mobile" >Shmokers Travel</h1></Link>
+        <div className="hamburger" onClick={() => setIsMobile(!isMobile)}>
+            <hr/>
+            <hr/>
+            <hr/>
+        </div>
 
         <Login handleClose={() => setShowLogin(false)} show={showLogin} logIn={logIn}/>
         <SignUp handleClose={() => setShowSignUp(false)} show={showSignUp} logIn={logIn}/>

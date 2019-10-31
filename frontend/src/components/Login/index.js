@@ -35,7 +35,12 @@ const Login = ({show, handleClose, logIn}) => {
         setError(errors);
     };
 
-    return <Modal show={show} onHide={handleClose} className="modal" >
+    const onHide = () => {
+        setError([]);
+        handleClose()
+    };
+
+    return <Modal show={show} onHide={onHide} className="modal" >
         <Modal.Body>
             <div className="modal-title">Log In</div>
             <div className="input-container">
@@ -49,9 +54,7 @@ const Login = ({show, handleClose, logIn}) => {
             <div>
                 {error.map(err => <div className="error">{err}</div>)}
             </div>
-            <div className="input-button">
-                <Button onClick={checkUser} text="Submit"/>
-            </div>
+            <Button className="input-button" onClick={checkUser} text="Submit"/>
             <div className="password-forgot">Forgot Password?</div>
         </Modal.Body>
     </Modal>

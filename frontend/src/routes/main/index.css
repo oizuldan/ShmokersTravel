@@ -1,6 +1,7 @@
 .main {
     width: 80%;
     margin: auto;
+    overflow: scroll;
 }
 
 .promo-text {
@@ -22,4 +23,10 @@
     position: absolute;
     top: 30%;
     width: 80%;
+}
+
+@media screen and (max-width: 650px) {
+    .vertically-centered {
+        top: 17%;
+    }
 }

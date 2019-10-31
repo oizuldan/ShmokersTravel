@@ -16,16 +16,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
       <CookiesProvider>
-        <div className="App">
-            <div className="backimage">
-                <Router>
-                    <NavBar/>
-                    <Switch>
-                        <Route path="/" exact component={Main}/>
-                        <Route path="/about" component={About}/>
-                    </Switch>
-                </Router>
-            </div>
+        <div className="backimage">
+            <Router>
+                <NavBar/>
+                <Switch>
+                    <Route path="/" exact component={Main}/>
+                    <Route path="/about" component={About}/>
+                </Switch>
+            </Router>
         </div>
       </CookiesProvider>
   );

@@ -59,9 +59,7 @@ const SignUp = ({show, handleClose, logIn}) => {
             <div>
                 {error.map(err => <div className="error">{err}</div>)}
             </div>
-            <div className="input-button">
-                <Button onClick={checkUser} text="Submit"/>
-            </div>
+            <Button className="input-button" onClick={checkUser} text="Submit"/>
         </Modal.Body>
     </Modal>
 };
