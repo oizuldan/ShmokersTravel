@@ -27,3 +27,4 @@ npm/
 target/
 build/
 
+.DS_Store
