@@ -1,0 +1,53 @@
+.result-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-bottom: white 1px solid;
+    padding-bottom: 10px;
+}
+
+.result-train, .result-seat {
+    flex: 1;
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.result-time {
+    height: 100%;
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-time hr {
+    flex: 1;
+    background-color: white;
+    margin: 0 5px;
+}
+
+.result-seat {
+    align-items: flex-end;
+}
+
+.buy-button {
+    width: 150px;
+    height: 40px;
+}
+
+.result-text {
+    font-weight: bold;
+}
+
+.result-train {
+    justify-content: center;
+}
+.result-time-mm {
+    color: #36CB33;
+    text-align: center;
+}
