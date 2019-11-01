@@ -36,7 +36,7 @@ const NavBar = () => {
             <Link to={''} className="link">
                 <h1 className="logo" >Shmokers Travel</h1>
             </Link>
-            {isAuthorized ? <><li className="menu-item" >Profile</li>
+            {isAuthorized ? <><Link to="profile" className="link" >Profile</Link>
                     <li className="menu-item" onClick={logOut}>Log Out</li></> :
                 <><li className="menu-item" onClick={() => setShowSignUp(true)}>Sign Up</li>
                 <li className="menu-item" onClick={() => setShowLogin(true)}>Log In</li></>
