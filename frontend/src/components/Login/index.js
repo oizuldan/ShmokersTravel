@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
-
+import Profile from '../../routes/profile'
 import Button from "../Button";
 import {validateEmail} from "../../helpers/validate";
 
