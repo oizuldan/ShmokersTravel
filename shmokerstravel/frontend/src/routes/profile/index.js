@@ -1,6 +1,6 @@
 import React from 'react'
-import Ticket from '../ticket/index.js'
-import ProfileSettings from "../profile-settings/index"
+import Ticket from '../../components/ticket'
+import ProfileSettings from "../profile-settings"
 import './index.css'
 
 const Profile = ()=>{

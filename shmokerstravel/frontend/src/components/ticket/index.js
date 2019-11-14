@@ -6,7 +6,6 @@ const Ticket = () =>{
         <div>
              <h1 className="ticket-title">Tickets</h1>
             <div className="the-main-ticket">
-                {/* <div className="ticket-info"> */}
                     <div className="ticket-train">
                             <div className="ticket-text">
                                 Ticket: <span className="ticket-number">13548</span>
@@ -24,7 +23,7 @@ const Ticket = () =>{
                                 Price: <span className="ticket-price">12000 tg</span>
                             </div>
                     </div>
-                    <div className="aaaa">
+                    <div className="ticket-route">
                             <div className="ticket-time">
                                 <div className="ticket-time-c">
                                     <div className="ticket-text">
