@@ -14,6 +14,7 @@ import NavBar from "../NavBar";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProfileSettings from '../../routes/profile-settings';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/" exact component={Main}/>
                     <Route path="/about" component={About}/>
                     <Route path="/profile" component={Profile}/>
+                    <Route path="/profile-settings" component={ProfileSettings}/>
                 </Switch>
             </Router>
         </div>
