@@ -26,7 +26,7 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
-		cookies.isAuthorized === 'true' && logIn();
+		cookies.isAuthorized && cookies.isAuthorized !== 'false' && logIn({hash: '12321'});
 	});
 
 	return (

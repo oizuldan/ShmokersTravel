@@ -6,29 +6,8 @@ import ResultInfo from './ResultInfo';
 
 import './index.css';
 
-// const results = [
-//     {
-//         depCity: 'Nur-Sultan',
-//         arrCity: 'Almaty',
-//         depTime: new Date(),
-//         arrTime: new Date(),
-//         avlbSeats: 100,
-//         train: '125NM',
-//         price: 10000
-//     },
-//     {
-//         depCity: 'Nur-Sultan',
-//         arrCity: 'Almaty',
-//         depTime: new Date(),
-//         arrTime: new Date(),
-//         avlbSeats: 100,
-//         train: '125NM',
-//         price: 10040
-//     },
-// ];
 
 const ResultTable = ({ depCity, arrCity, date, onClick, results }) => {
-	console.log(results);
 	return (
 		<div className="result-table">
 			<div className="result-header">
