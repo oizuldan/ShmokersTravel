@@ -120,14 +120,15 @@ INSERT INTO Seat(seat_number, vagon_number, train_number) VALUES(3,1,10);
 INSERT INTO Seat(seat_number, vagon_number, train_number) VALUES(4,1,10);
 INSERT INTO Seat(seat_number, vagon_number, train_number) VALUES(5,1,10);
 
-INSERT INTO Station(route_id, station_index, train_station_name, arrival_date, departure_date)
+INSERT INTO RouteStation(route_id, station_index, train_station_name, arrival_date, departure_date)
 VALUES(1, 1, 'Almaty', NULL, '2019-11-01 15:10');
-INSERT INTO Station(route_id, station_index, train_station_name, arrival_date, departure_date)
+INSERT INTO RouteStation(route_id, station_index, train_station_name, arrival_date, departure_date)
 VALUES(1, 2, 'Astana', '2019-11-02 10:00', NULL);
 
-INSERT INTO AvailiableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number) VALUES(1, 1, 1, 1, 2, 1);
-INSERT INTO AvailiableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number) VALUES(2, 1, 1, 1, 2, 1);
-INSERT INTO AvailiableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number) VALUES(3, 1, 1, 1, 2, 1);
-INSERT INTO AvailiableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number) VALUES(4, 1, 1, 1, 2, 1);
-INSERT INTO AvailiableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number) VALUES(5, 1, 1, 1, 2, 1);
+INSERT INTO AvailableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number, ticket_price) VALUES(1, 1, 1, 1, 2, 1, 500);
+INSERT INTO AvailableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number, ticket_price) VALUES(2, 1, 1, 1, 2, 1, 500);
+INSERT INTO AvailableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number, ticket_price) VALUES(3, 1, 1, 1, 2, 1, 500);
+INSERT INTO AvailableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number, ticket_price) VALUES(4, 1, 1, 1, 2, 1, 500);
+INSERT INTO AvailableRoute(seat_number, vagon_number, route_id, from_station, to_station, train_number, ticket_price) VALUES(5, 1, 1, 1, 2, 1, 500);
+
 
