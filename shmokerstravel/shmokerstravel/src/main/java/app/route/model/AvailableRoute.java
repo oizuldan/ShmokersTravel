@@ -8,18 +8,6 @@ import javax.persistence.*;
 public class AvailableRoute {
 
     @Id
-    @Column(name = "seat_number")
-    private int seatNumber;
-
-    @Id
-    @Column(name = "vagon_number")
-    private int vagonNumber;
-
-    @Id
-    @Column(name = "route_id")
-    private int routeId;
-
-    @Id
     @Column(name = "from_station")
     private int fromStation;
 
@@ -28,28 +16,34 @@ public class AvailableRoute {
     private int toStation;
 
     @Id
-    @Column(name = "train_number")
-    private int trainNumber;
+    @Column(name = "route_id")
+    private int routeId;
+
+    @Id
+    @Column(name = "available_seats")
+    private int numberOfAvailableSeats;
+
+    @Id
+    @Column(name = "ticket_price")
+    private int ticketPrice;
 
     public AvailableRoute() {}
 
-    public AvailableRoute(int seatNumber,
-                          int vagonNumber,
+    public AvailableRoute(int numberOfAvailableSeats,
+                          int ticketPrice,
                           int routeId,
                           int fromStation,
-                          int toStation,
-                            int trainNumber) {
-        this.seatNumber = seatNumber;
-        this.vagonNumber = vagonNumber;
+                          int toStation) {
+        this.numberOfAvailableSeats = numberOfAvailableSeats;
+        this.ticketPrice = ticketPrice;
         this.routeId = routeId;
         this.fromStation = fromStation;
         this.toStation = toStation;
-        this.trainNumber = trainNumber;
     }
 
-    public int getSeatNumber() {return seatNumber;}
+    public int getNumberOfAvailableSeats() {return numberOfAvailableSeats;}
 
-    public int getVagonNumber() {return vagonNumber;}
+    public int getTicketPrice() {return ticketPrice;}
 
     public int getRouteId() {return routeId;}
 
@@ -61,11 +55,10 @@ public class AvailableRoute {
     public String toString() {
         return "AvailableRoute{" +
                 "routeId='" + routeId + "\'" +
-                "seatNumber='" + seatNumber + "\'" +
-                "vagonNumber='" + vagonNumber + "\'" +
+                "numberOfAvailableSeats='" + numberOfAvailableSeats + "\'" +
+                "ticketPrice='" + ticketPrice + "\'" +
                 "fromStation='" + fromStation + "\'" +
                 "toStation='" + toStation + "\'" +
-                "trainNumber='" + trainNumber + "\'" +
                 "}";
     }
 }
