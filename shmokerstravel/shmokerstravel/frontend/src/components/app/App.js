@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,21 +10,25 @@ import About from '../../routes/about'
 import Main from '../../routes/main'
 import Profile from '../../routes/profile'
 import NavBar from "../NavBar";
-
+import BuyTicket from "../../routes/BuyTicket";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProfileSettings from '../../routes/profile-settings';
 
 function App() {
-  return (
+
+    return (
       <CookiesProvider>
         <div className="backimage">
             <Router>
-                <NavBar/>
+                <NavBar />
                 <Switch>
                     <Route path="/" exact component={Main}/>
                     <Route path="/about" component={About}/>
                     <Route path="/profile" component={Profile}/>
+                    <Route path="/buy" component={BuyTicket}/>
+                    <Route path="/profile-settings" component={ProfileSettings}/>
                 </Switch>
             </Router>
         </div>

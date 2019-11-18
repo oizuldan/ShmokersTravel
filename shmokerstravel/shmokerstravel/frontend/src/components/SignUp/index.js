@@ -15,10 +15,6 @@ const SignUp = ({ show, handleClose, logIn }) => {
 	const checkUser = () => {
 		if (validateEmail(email) && password.length > 0) onSuccess();
 		else onError(email, password);
-		setEmail('');
-		setPassword('');
-		setFirstName('');
-		setSecondName('');
 	};
 
 	const onSuccess = async () => {

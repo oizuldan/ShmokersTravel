@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import { format } from 'date-fns';
 
 import Button from '../../Button';
@@ -6,6 +8,19 @@ import Button from '../../Button';
 import './index.css';
 
 const ResultInfo = ({ res }) => {
+	const history = useHistory();
+	const [cookies] = useCookies();
+
+	const onBuyClick = () => {
+		if(!cookies.isAuthorized || cookies.isAuthorized === 'false')
+			alert('To buy ticket you need to log in or sign up');
+		else
+			history.push({
+				pathname: '/buy',
+				state: res,
+			});
+	};
+
 	return (
 		<div className="result-info">
 			<div className="result-train">
@@ -42,8 +57,9 @@ const ResultInfo = ({ res }) => {
 				<div className="result-text">
 					Price: <span className="seat-price">{res.price}tg</span>
 				</div>
-				<Button className="buy-button" text="Buy" type="additional" />
+				<Button className="buy-button" text="Buy" type="additional" onClick={onBuyClick}/>
 			</div>
+
 		</div>
 	);
 };

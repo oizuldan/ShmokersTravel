@@ -2,18 +2,41 @@ import React, { useState } from 'react';
 
 import SearchForm from '../../components/SearchForm';
 import ResultTable from '../../components/ResultTable';
+import Train from "../../components/Train";
 
 import './index.css';
 
+const resultsMock = [
+	{
+		departureTrainStationName: 'Nur-Sultan',
+		arrivalTrainStationName: 'Almaty',
+		departureDateTime: new Date(),
+		arrivalDateTime: new Date(),
+        avlbSeats: 100,
+		id: '125NM',
+        price: 10000
+    },
+    {
+		departureTrainStationName: 'Nur-Sultan',
+		arrivalTrainStationName: 'Almaty',
+		departureDateTime: new Date(),
+		arrivalDateTime: new Date(),
+        avlbSeats: 100,
+		id: '125NM',
+        price: 10040
+    },
+];
+
 const Main = () => {
-	const [showResults, setShowResults] = useState(false);
+	const [showResults, setShowResults] = useState(true);
 	const [date, setDate] = useState(new Date());
 	const [departure, setDeparture] = useState('');
 	const [arrival, setArrival] = useState('');
-	const [passengers, setPassengers] = useState(1);
 	const [results, setResult] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSearchClick = async () => {
+		setIsLoading(true);
 		const response = await fetch(
 			`http://localhost:8080/route?departure=${departure.trim()}&arrival=${arrival.trim()}`
 		);
@@ -37,15 +60,14 @@ const Main = () => {
 						arrCity={arrival}
 						date={date}
 						onClick={onBackClick}
-						results={results}
+						results={resultsMock}
 					/>
-				) : (
+				) : isLoading ? <Train/> : (
 					<>
 						<SearchForm
 							setArrival={setArrival}
 							setDate={setDate}
 							setDeparture={setDeparture}
-							setPassengers={setPassengers}
 							date={date}
 							onClick={onSearchClick}
 							disabled={!departure.length || !arrival.length}

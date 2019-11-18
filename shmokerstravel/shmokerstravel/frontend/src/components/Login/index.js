@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Profile from '../../routes/profile';
 import Button from '../Button';
 import { validateEmail } from '../../helpers/validate';
 
@@ -14,8 +13,6 @@ const Login = ({ show, handleClose, logIn }) => {
 	const checkUser = () => {
 		if (validateEmail(email) && password.length > 0) onSuccess();
 		else onError(email, password);
-		setEmail('');
-		setPassword('');
 	};
 
 	const onSuccess = async () => {

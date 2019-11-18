@@ -1,13 +1,12 @@
 import React from 'react'
-import Ticket from '../../components/ticket'
-import ProfileSettings from "../profile-settings"
+
 import './index.css'
 
-const Profile = ()=>{
+const ProfileSettings = ()=>{
     return (
         <div>
             <div className="profile">
-                <h1 className="profile-title">Profile<a className="profile-settings" href = "profile-settings">Profile Settings</a></h1>
+                <h1 className="profile-title">Profile-Settings</h1>
                 
                 <div className="profile-row">
                     <div className="profile-key">First Name:</div>
@@ -26,10 +25,10 @@ const Profile = ()=>{
                     <div className="profile-value">Nursultan</div>
                 </div>
             </div>
-            <Ticket/>
+            
 
 		</div>
         )
 };
 
-export default Profile;
+export default ProfileSettings;
