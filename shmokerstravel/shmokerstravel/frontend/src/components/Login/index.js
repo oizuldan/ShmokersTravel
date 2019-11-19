@@ -65,8 +65,8 @@ const Login = ({ show, handleClose, logIn }) => {
 					/>
 				</div>
 				<div>
-					{error.map(err => (
-						<div className="error">{err}</div>
+					{error.map((err, index) => (
+						<div className="error" key={index}>{err}</div>
 					))}
 				</div>
 				<Button className="input-button" onClick={checkUser} text="Submit" />

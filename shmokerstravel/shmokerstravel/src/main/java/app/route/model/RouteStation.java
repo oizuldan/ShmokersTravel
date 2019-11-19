@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Station")
-public class Station {
+@Table(name = "route_station")
+public class RouteStation {
 
     @Column(name = "route_id")
     private int routeId;
@@ -15,7 +15,7 @@ public class Station {
     private int stationIndex;
 
     @Column(name = "train_station_name")
-    private String stationName;
+    private String trainStationName;
 
     @Column(name = "arrival_date")
     private Date arrivalDate;
@@ -23,9 +23,9 @@ public class Station {
     @Column(name = "departure_date")
     private Date departureDate;
 
-    public Station() {}
+    public RouteStation() {}
 
-    public Station(
+    public RouteStation(
             int routeId,
             int stationIndex,
             String stationName,
@@ -33,7 +33,7 @@ public class Station {
             Date departureDate) {
         this.routeId = routeId;
         this.stationIndex = stationIndex;
-        this.stationName = stationName;
+        this.trainStationName = stationName;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
     }
@@ -42,7 +42,7 @@ public class Station {
 
     public int getStationIndex() { return stationIndex;}
 
-    public String getStationName() { return stationName;}
+    public String getStationName() { return trainStationName;}
 
     public Date getArrivalDate() { return arrivalDate;}
 
@@ -53,7 +53,7 @@ public class Station {
         return "Route{" +
                 "routeId='" + routeId + '\'' +
                 "stationIndex='" + stationIndex + "\'" +
-                "stationName='" + stationName + "\'" +
+                "stationName='" + trainStationName + "\'" +
                 "arrivalDate='" + arrivalDate + '\'' +
                 "departureDate='" + departureDate + '\'' +
                 '}';

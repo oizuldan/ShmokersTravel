@@ -3,7 +3,7 @@ package app.session.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Session")
+@Table(name = "session")
 public class Session {
 
     @Id

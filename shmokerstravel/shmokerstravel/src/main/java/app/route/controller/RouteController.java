@@ -7,8 +7,9 @@ import app.route.StationRepository;
 import app.route.model.AvailableRoute;
 import app.route.model.Route;
 import app.route.model.Seat;
-import app.route.model.Station;
+import app.route.model.RouteStation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +29,15 @@ public class RouteController {
     RouteRepository routeRepository;
 
     @CrossOrigin
-    @GetMapping("/routeAll")
-    public List<AvailableRoute> getAll() {
-        return availableRouteRepository.findAll();
+    @GetMapping("/availableRoute")
+    public List<AvailableRoute> getAvailableRoutes(@RequestParam(name = "from") String from, @RequestParam(name = "to") String to) {
+        return availableRouteRepository.findByFromStationAndToStation(from, to);
+    }
+
+    @CrossOrigin
+    @GetMapping("/getSeats")
+    public List<AvailableRoute> getSeats(@RequestParam(name = "from") String from, @RequestParam(name = "to") String to, @RequestParam(name = "routeId") int routeId) {
+        return availableRouteRepository.getAvailableSeats(from, to, routeId);
     }
 
     @CrossOrigin

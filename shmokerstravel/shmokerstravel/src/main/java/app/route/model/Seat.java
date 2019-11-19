@@ -3,7 +3,7 @@ package app.route.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Seat")
+@Table(name = "seat")
 @IdClass(SeatKeys.class)
 public class Seat {
 

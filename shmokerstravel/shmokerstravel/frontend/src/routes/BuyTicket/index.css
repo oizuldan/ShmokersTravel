@@ -1,0 +1,17 @@
+.buy-ticket {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px 20px 0 0;
+    padding: 30px 40px;
+    width: 80%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.buy-ticket-button {
+    width: 100px;
+    height: 50px;
+    align-self: center;
+}

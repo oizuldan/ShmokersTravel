@@ -1,0 +1,31 @@
+.buy-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.buy-form-input {
+    border: black 1px solid;
+    border-radius: 5px;
+    background: white;
+    font-size: 14px;
+    color: black;
+    height: 30px;
+    padding-left: 5px;
+}
+
+.buy-form-input:disabled {
+    background: #666666;
+}
+
+.buy-form-input-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 70px;
+}
+
+.form-confirm {
+    height: 30px;
+    width: 100px;
+}
