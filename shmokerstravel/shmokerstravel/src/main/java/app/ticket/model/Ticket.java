@@ -42,8 +42,15 @@ public class Ticket {
     @Column(name = "passenger_last_name")
     private String passengerLastName;
 
+    @Column(name = "arrival_date")
+    private Date arrivalDate;
+
+    @Column(name = "departure_date")
+    private Date departureDate;
+
     public Ticket(int price, Date date, String userId, String departureTrainStationName, String arrivalTrainStationName,
-                  int seatNumber, int trainNumber, String passengerFirstName, String passengerLastName, int vagonNumber) {
+                  int seatNumber, int trainNumber, String passengerFirstName, String passengerLastName, int vagonNumber,
+                  Date arrivalDate, Date departureDate) {
         this.price = price;
         this.date = date;
         this.userId = userId;
@@ -54,6 +61,8 @@ public class Ticket {
         this.passengerFirstName = passengerFirstName;
         this.passengerLastName = passengerLastName;
         this.vagonNumber = vagonNumber;
+        this.arrivalDate = arrivalDate;
+        this.departureDate = departureDate;
     }
 
     public int getId(){return id;}
@@ -64,16 +73,33 @@ public class Ticket {
 
     public int getTrainNumber(){return trainNumber;}
 
-    public
+    public Date getArrivalDate(){return arrivalDate;}
+
+    public Date getDepartureDate(){return departureDate;}
+
+    public String getDepartureTrainStationName(){return departureTrainStationName;}
+
+    public String getArrivalTrainStationName(){return arrivalTrainStationName;}
+
+    public String getPassengerFirstName(){return passengerFirstName;}
+
+    public String getPassengerLastName(){return passengerLastName;}
+
+    public String getUserId(){return userId;}
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName='" + passengerFirstName + '\'' +
+                ", lastName='" + passengerLastName + '\'' +
+                ", departureStation='" + departureTrainStationName + '\'' +
+                ", arrivalStation='" + arrivalTrainStationName + '\'' +
+                ", train='" + trainNumber + '\'' +
+                ", vagon='" + vagonNumber + '\'' +
+                ", seat='" + seatNumber + '\'' +
+                ", departureDate='" + departureDate + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
                 '}';
     }
 }
