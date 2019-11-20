@@ -1,0 +1,13 @@
+#workers .modal-content {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    color: black;
+}
+
+#white-back .modal-title {
+    color: black;
+}
+
+table span {
+    color: black;
+}

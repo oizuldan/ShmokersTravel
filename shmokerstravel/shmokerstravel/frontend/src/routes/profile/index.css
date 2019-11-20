@@ -2,7 +2,7 @@
     background: rgba(192, 189, 189, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-radius: 20px 20px;
+    border-radius: 20px;
     padding: 30px 40px;
     margin: 50px auto;
     width: 80%;
@@ -34,4 +34,23 @@
 .profile-settings{
     color: brown;
     font-size: 40%;
+}
+
+.profile-button {
+    width: 100px;
+    height: 50px;
+    font-weight: normal;
+
+}
+
+.profile-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+#white-back .modal-content {
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    color: black;
 }
