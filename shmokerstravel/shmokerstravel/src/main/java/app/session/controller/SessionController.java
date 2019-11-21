@@ -20,10 +20,11 @@ public class SessionController {
         return sessionRepository.findAll();
     }
 
+
     @CrossOrigin
-    @GetMapping("/session/{user_id}")
-    public Session show(@PathVariable int user_id){
-        return sessionRepository.findOne(user_id);
+    @GetMapping("/session/{hash}")
+    public int show(@PathVariable String hash){
+        return sessionRepository.getUserId(hash);
     }
 
     @CrossOrigin

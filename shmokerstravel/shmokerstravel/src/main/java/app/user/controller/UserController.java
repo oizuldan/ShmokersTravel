@@ -46,7 +46,6 @@ public class UserController {
         int userId = usr.getId();
         int hash = Session.makeHash((email));
 
-        System.out.println(userId + " " + hash);
 
         Session ssn = sessionRepository.save(new Session(hash, userId));
 
@@ -69,7 +68,6 @@ public class UserController {
         int userId = usr.get(0).getId();
         int hash = Session.makeHash((email));
 
-        System.out.println(userId + " " + hash);
 
         Session ssn = sessionRepository.save(new Session(hash, userId));
 
@@ -85,12 +83,15 @@ public class UserController {
         String email = body.get("email");
         String firstName = body.get("firstName");
         String lastName = body.get("lastName");
+
         User user = userRepository.findOne(userId);
+
         user.setPassword(password);
         user.setPhone(phone);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
+
         return userRepository.save(user);
     }
 
@@ -99,6 +100,15 @@ public class UserController {
     public boolean delete(@PathVariable String id){
         int userId = Integer.parseInt(id);
         userRepository.delete(userId);
+
+        return true;
+    }
+
+    @CrossOrigin
+    @DeleteMapping("user/logout/{hash}")
+    public boolean logout(@PathVariable String hash){
+        sessionRepository.deleteSession(hash);
+
         return true;
     }
 

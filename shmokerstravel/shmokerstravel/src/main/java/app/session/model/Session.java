@@ -41,7 +41,7 @@ public class Session {
         for (int i = 0; i < str.length(); i++) {
             hash = hash * 31 + str.charAt(i);
         }
-        return hash;
+        return Math.abs(hash);
     }
 
     @Override

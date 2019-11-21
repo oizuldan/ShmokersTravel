@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "route")
-public class Route {
+@Table(name = "trip")
+public class Trip {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
-    @Column(name = "route_id")
+    @Column(name = "trip_id")
     private int id;
 
     @Column(name = "departure_train_station_name")
@@ -24,9 +24,10 @@ public class Route {
     @Column(name = "arrival_date")
     private Date arrivalDateTime;
 
-    public  Route() {}
 
-    public Route(String departureTrainStationName,
+    public Trip(){}
+
+    public Trip(String departureTrainStationName,
                  String arrivalTrainStationName,
                  Date departureDateTime,
                  Date arrivalDateTime) {
@@ -46,9 +47,26 @@ public class Route {
 
     public Date getArrivalDateTime() { return arrivalDateTime;}
 
+
+    public void setDepartureTrainStationName(String departureTrainStationName){
+        this.departureTrainStationName = departureTrainStationName;
+    }
+
+    public void setArrivalTrainStationName(String arrivalTrainStationName){
+        this.arrivalTrainStationName = arrivalTrainStationName;
+    }
+
+    public void setDepartureDateTime(Date departureDateTime){
+        this.departureDateTime = departureDateTime;
+    }
+
+    public void setArrivalDateTime(Date arrivalDateTime){
+        this.arrivalDateTime = arrivalDateTime;
+    }
+
     @Override
     public String toString() {
-        return "Route{" +
+        return "Trip{" +
                 "id='" + id + '\'' +
                 "departureTrainStationName='" + departureTrainStationName + "\'" +
                 "arrivalTrainStationName='" + arrivalTrainStationName + "\'" +

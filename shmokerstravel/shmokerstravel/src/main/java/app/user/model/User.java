@@ -26,18 +26,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    public User() {}
+    public User(){}
 
     public User(String password, String phone, String email, String firstName, String lastName) {
-        this.setPassword(password);
-        this.setPhone(phone);
-        this.setEmail(email);
-        this.setFirstName(firstName);
-        this.setLastName(lastName);
-    }
-
-    public User(int id, String password, String phone, String email, String firstName, String lastName) {
-        this.setId(id);
         this.setPassword(password);
         this.setPhone(phone);
         this.setEmail(email);

@@ -4,16 +4,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "route_station")
-public class RouteStation {
+@Table(name = "trip_station")
+@IdClass(TripStationKeys.class)
+public class TripStation {
 
-    @Column(name = "route_id")
-    private int routeId;
+    @Id
+    @Column(name = "trip_id")
+    private int tripId;
 
     @Id
     @Column(name = "station_index")
     private int stationIndex;
 
+    @Id
     @Column(name = "train_station_name")
     private String trainStationName;
 
@@ -23,22 +26,24 @@ public class RouteStation {
     @Column(name = "departure_date")
     private Date departureDate;
 
-    public RouteStation() {}
 
-    public RouteStation(
-            int routeId,
+    public TripStation() {}
+
+    public TripStation(
+            int tripId,
             int stationIndex,
             String stationName,
             Date arrivalDate,
-            Date departureDate) {
-        this.routeId = routeId;
+            Date departureDate
+            ) {
+        this.tripId = tripId;
         this.stationIndex = stationIndex;
         this.trainStationName = stationName;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
     }
 
-    public int getRouteId() { return routeId;}
+    public int getTripId() { return tripId;}
 
     public int getStationIndex() { return stationIndex;}
 
@@ -48,10 +53,32 @@ public class RouteStation {
 
     public Date getDepartureDate() { return departureDate;}
 
+
+    public void setTripId(int tripId){
+        this.tripId = tripId;
+    }
+
+    public void setStationIndex(int stationIndex){
+        this.stationIndex = stationIndex;
+    }
+
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public void setTrainStationName(String trainStationName) {
+        this.trainStationName = trainStationName;
+    }
+
+
     @Override
     public String toString() {
-        return "Route{" +
-                "routeId='" + routeId + '\'' +
+        return "TripStation{" +
+                "tripId='" + tripId + '\'' +
                 "stationIndex='" + stationIndex + "\'" +
                 "stationName='" + trainStationName + "\'" +
                 "arrivalDate='" + arrivalDate + '\'' +
