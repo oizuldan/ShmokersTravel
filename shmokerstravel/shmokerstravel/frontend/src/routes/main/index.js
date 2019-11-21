@@ -5,6 +5,7 @@ import ResultTable from "../../components/ResultTable";
 import Train from "../../components/Train";
 
 import "./index.css";
+import Map from "../../components/Map";
 
 const resultsMock = [
   {
@@ -28,7 +29,7 @@ const resultsMock = [
 ];
 
 const Main = () => {
-  const [showResults, setShowResults] = useState(true);
+  const [showResults, setShowResults] = useState(false);
   const [date, setDate] = useState(new Date());
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
