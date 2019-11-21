@@ -1,0 +1,31 @@
+.info-student{
+    text-align: center;
+    background: rgba(171, 167, 185, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 3px;
+    padding: 3px;
+    margin: 2px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 300px;
+    width: 200px;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+.info-student p,h5{
+    color: black;
+}
+.student-cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:center;  
+}
+.student-photos{
+    height: 150px;
+    width: 150px;
+    align-items: center;
+    object-fit: cover;
+}

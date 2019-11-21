@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import SearchForm from "../../components/SearchForm";
 import ResultTable from "../../components/ResultTable";
-import Train from "../../components/Train";
 
 import "./index.css";
 
@@ -28,16 +27,14 @@ const resultsMock = [
 ];
 
 const Main = () => {
-  const [showResults, setShowResults] = useState(true);
+  const [showResults, setShowResults] = useState(false);
   const [date, setDate] = useState(new Date());
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [results, setResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [passengers, setPassengers] = useState(1);
 
   const onSearchClick = async () => {
-    setIsLoading(true);
     const response = await fetch(
       `http://localhost:8080/route?departure=${departure.trim()}&arrival=${arrival.trim()}`
     );
@@ -64,9 +61,7 @@ const Main = () => {
             onClick={onBackClick}
             results={resultsMock}
           />
-        ) : isLoading ? (
-          <Train />
-        ) : (
+        ) :  (
           <>
             <SearchForm
               setArrival={setArrival}

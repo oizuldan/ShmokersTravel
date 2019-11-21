@@ -12,8 +12,8 @@ const SignUp = ({ show, handleClose, logIn }) => {
 	const [error, setError] = useState([]);
 	const [phone, setPhone] = useState('');
 
-	const checkUser = () => {
-		if (validateEmail(email) && password.length > 0) onSuccess();
+	const checkUser = async () => {
+		if (validateEmail(email) && password.length > 0) await onSuccess();
 		else onError(email, password);
 	};
 
