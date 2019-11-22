@@ -178,7 +178,21 @@ VALUES(4, 1, 6, 1, 2, 6, 500, '2019-11-01T16:00');
 INSERT INTO available_seat(seat_number, vagon_number, trip_id, from_station, to_station, train_number, ticket_price, date) 
 VALUES(5, 1, 6, 1, 2, 6, 500, '2019-11-01T16:00');
 
-insert into user(password, phone, email, first_name, last_name)
-values("123", "87082079818", "aisultan.kassenov@nu.edu.kz", "Aisultan", "Kassenov")
+INSERT INTO user(password, phone, email, first_name, last_name)
+VALUES("123", "87082079818", "aisultan.kassenov@nu.edu.kz", "Aisultan", "Kassenov");
+INSERT INTO user(password, phone, email, first_name, last_name)
+VALUES("123", "87082079818", "beverly@gmail.com", "Beverly", "Crusher");
+INSERT INTO user(password, phone, email, first_name, last_name)
+VALUES("123", "87082079818", "john@gmail.com", "John", "Smith");
+INSERT INTO user(password, phone, email, first_name, last_name)
+VALUES("123", "87082079818", "william@gmail.com", "William", "Rieker");
 
+INSERT INTO employee(id_employee, salary, employment_date)
+VALUES(6, 1000, '2019-01-01T00:00') ;
+
+INSERT INTO employee(id_employee, salary, employment_date)
+VALUES(7, 1000, '2019-01-01T00:00');
+
+INSERT INTO manager(id_manager)
+VALUES(7);
 
