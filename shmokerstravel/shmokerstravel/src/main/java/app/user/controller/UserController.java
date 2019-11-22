@@ -1,18 +1,22 @@
 package app.user.controller;
 
+import app.MainApplication;
 import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
+import app.user.LogsRepository;
 import app.user.UserRepository;
+import app.user.model.Employee;
 import app.user.model.User;
 import app.session.SessionRepository;
 import app.session.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.IOUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,6 +28,8 @@ public class UserController {
     SessionRepository sessionRepository;
     @Autowired
     TicketRepository ticketRepository;
+    @Autowired
+    LogsRepository logsRepository;
 
     @CrossOrigin
     @GetMapping("/user")
@@ -58,14 +64,47 @@ public class UserController {
     }
 
     @CrossOrigin
+    @GetMapping("/getAgents")
+    public List<Employee> getAgents(){
+
+        List<Employee> agents = new ArrayList<>();
+        List<Object[]> res = userRepository.findAgents();
+        Iterator it = res.iterator();
+
+        while(it.hasNext()){
+            Object[] line = (Object[]) it.next();
+            Employee agent = new Employee();
+
+            agent.setEmployeeId((int) line[0]);
+            agent.setSalary((int) line[1]);
+            agent.setEmploymentDate((Date) line[2]);
+            agent.setFistName((String) line[3]);
+            agent.setLastName((String) line[4]);
+
+            agents.add(agent);
+        }
+
+        return agents;
+    }
+
+    @CrossOrigin
     @GetMapping("/managers")
     public String[] show(){
         return userRepository.selectAllManagers();
     }
 
     @CrossOrigin
+    @GetMapping("/logs")
+    public String getLogs() throws IOException {
+
+        String content = new String ( Files.readAllBytes( Paths.get("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt") ) );
+
+        return content;
+    }
+
+    @CrossOrigin
     @PostMapping("/user/create")
-    public List<String> create(@RequestBody Map<String, String> body){
+    public List<String> create(@RequestBody Map<String, String> body) throws IOException {
         String password = body.get("password");
         String phone = body.get("phone");
         String email = body.get("email");
@@ -90,6 +129,16 @@ public class UserController {
 
         out.add(String.valueOf(hash));
         out.add(String.valueOf(isManager));
+
+
+        if(logsRepository.findAll().get(0).getStatus()){
+            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            FileWriter fr = new FileWriter(file, true);
+            String output = "User Created: userId -> " + userId + " ----- date -> " + new Date() + "\n";
+
+            fr.write(output);
+            fr.close();
+        }
 
         return out;
     }
@@ -118,7 +167,7 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/employee/update")
-    public boolean updateEmployee(@RequestBody Map<String, String> body) throws Error{
+    public boolean updateEmployee(@RequestBody Map<String, String> body) throws Error, IOException {
 
         String hash = body.get("hash");
         int employeeId = Integer.parseInt(body.get("employeeId"));
@@ -135,15 +184,33 @@ public class UserController {
         List<String> managersList = Arrays.asList(managers);
         if(managersList.contains(String.valueOf(userId))){
             userRepository.updateEmployee(employeeId, salary);
+
+            if(logsRepository.findAll().get(0).getStatus()) {
+                File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+                FileWriter fr = new FileWriter(file, true);
+                String output = "Employee Updated: userId -> " + employeeId + " ----- date -> " + new Date() + "\n";
+
+                fr.write(output);
+                fr.close();
+            }
+
             return true;
         }else{
             throw new Error("user doesn't have priveliges");
         }
+
+
+    }
+
+    @CrossOrigin
+    @PostMapping("/logs/{enabled}")
+    public void updateEmployee(@PathVariable String enabled) throws Error{
+        logsRepository.updateLogs(Boolean.valueOf(enabled));
     }
 
     @CrossOrigin
     @PostMapping("/user/login")
-    public List<String> login(@RequestBody Map<String, String> body){
+    public List<String> login(@RequestBody Map<String, String> body) throws IOException {
         String password = body.get("password");
         String email = body.get("email");
 
@@ -160,7 +227,7 @@ public class UserController {
         boolean isManager = false;
         String[] managers = userRepository.selectAllManagers();
         List<String> managersList = Arrays.asList(managers);
-        System.out.println(managersList);
+
         if(managersList.contains(String.valueOf(userId))){
             isManager = true;
         }
@@ -171,6 +238,15 @@ public class UserController {
 
         out.add(String.valueOf(hash));
         out.add(String.valueOf(isManager));
+
+        if(logsRepository.findAll().get(0).getStatus()) {
+            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            FileWriter fr = new FileWriter(file, true);
+            String output = "User LoggedIn: userId -> " + userId + " ----- date -> " + new Date() + "\n";
+
+            fr.write(output);
+            fr.close();
+        }
 
         return out;
     }
@@ -207,8 +283,19 @@ public class UserController {
 
     @CrossOrigin
     @DeleteMapping("user/logout/{hash}")
-    public boolean logout(@PathVariable String hash){
+    public boolean logout(@PathVariable String hash) throws IOException {
+        int userId = sessionRepository.getUserId(hash);
+
         sessionRepository.deleteSession(hash);
+
+        if(logsRepository.findAll().get(0).getStatus()) {
+            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            FileWriter fr = new FileWriter(file, true);
+            String output = "User LoggedOut: userId -> " + userId + " ----- date -> " + new Date() + "\n";
+
+            fr.write(output);
+            fr.close();
+        }
 
         return true;
     }

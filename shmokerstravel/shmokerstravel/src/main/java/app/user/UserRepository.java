@@ -15,6 +15,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByEmail(String email);
 
+    @Query("select E.employeeId, E.salary, E.employmentDate, E.firstName, E.lastName\n" +
+            "from Employee E where E.employeeId not in (select managerId from Manager)")
+    List<Object[]> findAgents();
+
     @Transactional
     @Modifying
     @Query("update User u set u.email = :email, u.password = :password, u.firstName = :firstName, u.lastName = :lastName," +

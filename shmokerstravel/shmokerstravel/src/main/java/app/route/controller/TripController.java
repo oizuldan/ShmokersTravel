@@ -38,19 +38,6 @@ public class TripController {
 
         return availableSeatRepository.findByFromStationAndToStation(from, to, departure, arrival);
 
-//        ArrayList<ArrayList<Object>> availableSeats = new ArrayList<>();
-//        Iterator it = res.iterator();
-//
-//        while (it.hasNext()){
-//            Object[] line = (Object[]) it.next();
-//            ArrayList<Object> seats = new ArrayList<>();
-//            seats.add(line[0]);
-//            seats.add(line[1]);
-//            seats.add(line[2]);
-//            availableSeats.add(seats);
-//        }
-//
-//        return availableSeats;
     }
 
     @CrossOrigin
@@ -100,23 +87,23 @@ public class TripController {
 
 
         if(departureTrainStationName.equals("Nur-Sultan") && arrivalTrainStationName.equals("Petropavl")) {
-            arrivalDateTime = dateTime + 28800000;
-            departureDateTime = dateTime + 57600000;
+            departureDateTime = dateTime + 28800000;
+            arrivalDateTime = dateTime + 57600000;
         }else if(departureTrainStationName.equals("Petropavl") && arrivalTrainStationName.equals("Nur-Sultan")){
-            arrivalDateTime = dateTime + 61200000;
-            departureDateTime = dateTime + 90000000;
+            departureDateTime = dateTime + 61200000;
+            arrivalDateTime = dateTime + 90000000;
         }else if(departureTrainStationName.equals("Kokshetau") && arrivalTrainStationName.equals("Kostanay")){
-            arrivalDateTime = dateTime + 43200000;
-            departureDateTime = dateTime + 54000000;
+            departureDateTime = dateTime + 43200000;
+            arrivalDateTime = dateTime + 54000000;
         }else if(departureTrainStationName.equals("Kostanay") && arrivalTrainStationName.equals("Kokshetau")){
-            arrivalDateTime = dateTime + 57600000;
-            departureDateTime = dateTime + 68400000;
+            departureDateTime = dateTime + 57600000;
+            arrivalDateTime = dateTime + 68400000;
         }else if(departureTrainStationName.equals("Nur-Sultan") && arrivalTrainStationName.equals("Pavlodar")){
-            arrivalDateTime = dateTime + 43200000;
-            departureDateTime = dateTime + 54000000;
+            departureDateTime = dateTime + 43200000;
+            arrivalDateTime = dateTime + 54000000;
         }else if(departureTrainStationName.equals("Pavlodar") && arrivalTrainStationName.equals("Nur-Sultan")){
-            arrivalDateTime = dateTime + 57600000;
-            departureDateTime = dateTime + 68400000;
+            departureDateTime = dateTime + 57600000;
+            arrivalDateTime = dateTime + 68400000;
         }
 
         trip.setArrivalDateTime(new Date(arrivalDateTime));
