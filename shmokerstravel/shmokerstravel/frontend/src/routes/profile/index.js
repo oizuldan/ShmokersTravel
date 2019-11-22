@@ -16,8 +16,11 @@ const Profile = () => {
   const [showTickets, setShowTickets] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [password, setPassword] = useState("");
+  const [tickets, setTickets] = useState([]);
 
-  const [cookies] = useCookies();
+  const [cookies, setCookie] = useCookies();
+  const [isAgent, setAgent] = useState(false);
+  const [isManager, setManager] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
@@ -33,6 +36,17 @@ const Profile = () => {
       setEmail(result.email);
       setPhone(result.phone);
       setPassword(result.password)
+
+      const response2 = await fetch(`http://localhost:8080/getAgents`);
+      const result2 = await response2.json();
+      result2.forEach(res => {
+        if(res.employeeId === result.id)
+          setCookie(isAgent, true, {path: '/'});
+      });
+
+      const response3 = await fetch(`http://localhost:8080/getTickets/${result.id}`);
+      const result3 = await response3.json();
+      setTickets(result3);
     };
     fetchData();
   }, []);
@@ -67,40 +81,39 @@ const Profile = () => {
           <div className="profile-value">{phone}</div>
         </div>
         <div className="profile-buttons">
-          <Button
+          {cookies.isManager === "true" && <Button
             text="Show Workers"
             className="profile-button"
             onClick={() => setShowWorkers(true)}
-          />
-          <Button
+          />}
+          {cookies.isManager === "true" && <Button
             text="Manage Routes"
             className="profile-button"
             onClick={() => setShowRoutes(true)}
-          />
-          <Button
+          />}
+          {cookies.isAgent === "true" && <Button
             text="Manage Tickets"
             className="profile-button"
             onClick={() => setShowTickets(true)}
-          />
+          />}
         </div>
       </div>
-      <Ticket />
+      {tickets.map((ticket, index) => <Ticket key={index} ticket={ticket}/>)}
 
-      {cookies.isManager === "true" && <Workers
-        show={showWorkers}
-        workers={workers}
-        onHide={() => setShowWorkers(false)}
-      />}
-      {cookies.isManager === "true" && <Routes
-        show={showRoutes}
-        workers={workers}
-        onHide={() => setShowRoutes(false)}
-      />}
-      {cookies.isManager === "true" && <TicketModal
-        show={showTickets}
-        workers={workers}
-        onHide={() => setShowTickets(false)}
-      />}
+      <Workers
+          show={showWorkers}
+          workers={workers}
+          onHide={() => setShowWorkers(false)}
+      />
+      <Routes
+          show={showRoutes}
+          onHide={() => setShowRoutes(false)}
+      />
+      <TicketModal
+          show={showTickets}
+          onHide={() => setShowTickets(false)}
+      />
+
       <Settings
         onHide={() => setShowSettings(false)}
         show={showSettings}

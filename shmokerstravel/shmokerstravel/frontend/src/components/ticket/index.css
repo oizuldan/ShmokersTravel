@@ -68,3 +68,10 @@
 .ticket-title{
     margin-left: 10%;
 }
+
+.route-change-state {
+    cursor: pointer;
+    margin: 10px 0;
+    font-weight: bold;
+    text-decoration: underline;
+}
