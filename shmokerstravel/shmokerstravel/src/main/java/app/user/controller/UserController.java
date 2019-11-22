@@ -1,8 +1,6 @@
 package app.user.controller;
 
-import app.MainApplication;
 import app.ticket.TicketRepository;
-import app.ticket.model.Ticket;
 import app.user.LogsRepository;
 import app.user.PaycheckRepository;
 import app.user.UserRepository;
@@ -13,7 +11,6 @@ import app.session.SessionRepository;
 import app.session.model.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.IOUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -34,6 +31,8 @@ public class UserController {
     LogsRepository logsRepository;
     @Autowired
     PaycheckRepository paycheckRepository;
+    
+    private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
 
     @CrossOrigin
     @GetMapping("/user")
@@ -101,7 +100,7 @@ public class UserController {
     @GetMapping("/logs")
     public String getLogs() throws IOException {
 
-        String content = new String ( Files.readAllBytes( Paths.get("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt") ) );
+        String content = new String ( Files.readAllBytes( Paths.get(filePath) ) );
 
         return content;
     }
@@ -136,7 +135,7 @@ public class UserController {
 
 
         if(logsRepository.findAll().get(0).getStatus()){
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "User Created: userId -> " + userId + " ----- date -> " + new Date() + "\n";
 
@@ -190,7 +189,7 @@ public class UserController {
             userRepository.updateEmployee(employeeId, salary);
 
             if(logsRepository.findAll().get(0).getStatus()) {
-                File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+                File file = new File(filePath);
                 FileWriter fr = new FileWriter(file, true);
                 String output = "Employee Updated: userId -> " + employeeId + " ----- date -> " + new Date() + "\n";
 
@@ -269,7 +268,7 @@ public class UserController {
         out.add(String.valueOf(isManager));
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "User LoggedIn: userId -> " + userId + " ----- date -> " + new Date() + "\n";
 
@@ -318,7 +317,7 @@ public class UserController {
         sessionRepository.deleteSession(hash);
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "User LoggedOut: userId -> " + userId + " ----- date -> " + new Date() + "\n";
 

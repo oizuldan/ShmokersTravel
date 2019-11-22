@@ -6,7 +6,6 @@ import app.session.SessionRepository;
 import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
 import app.user.LogsRepository;
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +13,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 @RestController
@@ -31,6 +26,9 @@ public class TicketController {
     SessionRepository sessionRepository;
     @Autowired
     LogsRepository logsRepository;
+
+    private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
+
 
     @CrossOrigin
     @PostMapping("/createTicket")
@@ -109,7 +107,7 @@ public class TicketController {
         }
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "Ticket Created: userId -> " + userId + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
 
@@ -161,7 +159,7 @@ public class TicketController {
         ticketRepository.delete(Integer.parseInt(id));
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "Ticket Deleted: userId -> " + ticket.getUserId() + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
 
