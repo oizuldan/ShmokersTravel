@@ -5,6 +5,7 @@ import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
 import app.user.LogsRepository;
 import app.user.UserRepository;
+import app.user.model.Employee;
 import app.user.model.User;
 import app.session.SessionRepository;
 import app.session.model.Session;
@@ -60,6 +61,30 @@ public class UserController {
             throw new Error("unauthorized user");
         }
         return userRepository.findOne(userId);
+    }
+
+    @CrossOrigin
+    @GetMapping("/getAgents")
+    public List<Employee> getAgents(){
+
+        List<Employee> agents = new ArrayList<>();
+        List<Object[]> res = userRepository.findAgents();
+        Iterator it = res.iterator();
+
+        while(it.hasNext()){
+            Object[] line = (Object[]) it.next();
+            Employee agent = new Employee();
+
+            agent.setEmployeeId((int) line[0]);
+            agent.setSalary((int) line[1]);
+            agent.setEmploymentDate((Date) line[2]);
+            agent.setFistName((String) line[3]);
+            agent.setLastName((String) line[4]);
+
+            agents.add(agent);
+        }
+
+        return agents;
     }
 
     @CrossOrigin
