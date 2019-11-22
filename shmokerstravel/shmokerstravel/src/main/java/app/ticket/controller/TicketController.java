@@ -15,6 +15,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class TicketController {
@@ -30,6 +31,12 @@ public class TicketController {
 
     private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
 
+
+    @CrossOrigin
+    @GetMapping("/getTickets/{userId}")
+    public List<Ticket> getTickets(@PathVariable int userId){
+        return ticketRepository.findAll().stream().filter(s -> s.getUserId() == userId).collect(Collectors.toList());
+    }
 
     @CrossOrigin
     @PostMapping("/createTicket")
