@@ -1,0 +1,2 @@
+User LoggedOut: userId -> 7 ----- date -> Fri Nov 22 14:43:28 ALMT 2019
+userLoggedIn: userId -> 5 ----- date -> Fri Nov 22 14:43:42 ALMT 2019

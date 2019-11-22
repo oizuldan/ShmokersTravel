@@ -5,10 +5,14 @@ import app.route.model.AvailableSeat;
 import app.session.SessionRepository;
 import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
+import app.user.LogsRepository;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -25,10 +29,12 @@ public class TicketController {
     AvailableSeatRepository availableSeatRepository;
     @Autowired
     SessionRepository sessionRepository;
+    @Autowired
+    LogsRepository logsRepository;
 
     @CrossOrigin
     @PostMapping("/createTicket")
-    public Ticket createTicket(@RequestBody Map<String, String> body) throws Error, ParseException {
+    public Ticket createTicket(@RequestBody Map<String, String> body) throws Error, ParseException, IOException {
         int price = Integer.parseInt(body.get("price"));
         String hash = body.get("hash");
         String departureTrainStationName = body.get("departureTrainStationName");
@@ -102,13 +108,21 @@ public class TicketController {
             throw  new Error("the seat is unavailable");
         }
 
+        if(logsRepository.findAll().get(0).getStatus()) {
+            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            FileWriter fr = new FileWriter(file, true);
+            String output = "Ticket Created: userId -> " + userId + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
+
+            fr.write(output);
+            fr.close();
+        }
 
         return ticketRepository.save(ticket);
     }
 
     @CrossOrigin
     @DeleteMapping("/deleteTicket/{id}")
-    public boolean deleteTicket(@PathVariable String id) throws Error {
+    public boolean deleteTicket(@PathVariable String id) throws Error, IOException {
         Ticket ticket = ticketRepository.findOne(Integer.parseInt(id));
 
         if(ticket == null) {
@@ -145,6 +159,15 @@ public class TicketController {
         }
 
         ticketRepository.delete(Integer.parseInt(id));
+
+        if(logsRepository.findAll().get(0).getStatus()) {
+            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            FileWriter fr = new FileWriter(file, true);
+            String output = "Ticket Deleted: userId -> " + ticket.getUserId() + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
+
+            fr.write(output);
+            fr.close();
+        }
 
         return true;
     }
