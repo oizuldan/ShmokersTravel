@@ -35,6 +35,7 @@ public class TicketController {
     public Ticket createTicket(@RequestBody Map<String, String> body) throws Error, ParseException, IOException {
         int price = Integer.parseInt(body.get("price"));
         String hash = body.get("hash");
+        int userIdd = Integer.parseInt(body.get("userId"));
         String departureTrainStationName = body.get("departureTrainStationName");
         String arrivalTrainStationName = body.get("arrivalTrainStationName");
         int seatNumber = Integer.parseInt(body.get("seatNumber"));
@@ -51,14 +52,16 @@ public class TicketController {
         Ticket ticket = new Ticket();
 
         int userId = 0;
-        try{
-            userId = sessionRepository.getUserId(hash);
-        } catch (Error error) {
-            throw new Error("unauthorized user");
+        if(hash != null){
+            try{
+                userId = sessionRepository.getUserId(hash);
+            } catch (Error error) {
+                throw new Error("unauthorized user");
+            }
         }
 
 
-        ticket.setUserId(userId);
+        ticket.setUserId(userId == 0 ? userIdd : userId);
         ticket.setArrivalDate(arrivalDate);
         ticket.setDepartureDate(departureDate);
         ticket.setArrivalTrainStationName(arrivalTrainStationName);
