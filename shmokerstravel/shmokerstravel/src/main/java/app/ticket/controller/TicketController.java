@@ -14,10 +14,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 @RestController
@@ -32,11 +28,15 @@ public class TicketController {
     @Autowired
     LogsRepository logsRepository;
 
+    private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
+
+
     @CrossOrigin
     @PostMapping("/createTicket")
     public Ticket createTicket(@RequestBody Map<String, String> body) throws Error, ParseException, IOException {
         int price = Integer.parseInt(body.get("price"));
         String hash = body.get("hash");
+        int userIdd = Integer.parseInt(body.get("userId"));
         String departureTrainStationName = body.get("departureTrainStationName");
         String arrivalTrainStationName = body.get("arrivalTrainStationName");
         int seatNumber = Integer.parseInt(body.get("seatNumber"));
@@ -53,14 +53,16 @@ public class TicketController {
         Ticket ticket = new Ticket();
 
         int userId = 0;
-        try{
-            userId = sessionRepository.getUserId(hash);
-        } catch (Error error) {
-            throw new Error("unauthorized user");
+        if(hash != null){
+            try{
+                userId = sessionRepository.getUserId(hash);
+            } catch (Error error) {
+                throw new Error("unauthorized user");
+            }
         }
 
 
-        ticket.setUserId(userId);
+        ticket.setUserId(userId == 0 ? userIdd : userId);
         ticket.setArrivalDate(arrivalDate);
         ticket.setDepartureDate(departureDate);
         ticket.setArrivalTrainStationName(arrivalTrainStationName);
@@ -109,7 +111,7 @@ public class TicketController {
         }
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "Ticket Created: userId -> " + userId + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
 
@@ -161,7 +163,7 @@ public class TicketController {
         ticketRepository.delete(Integer.parseInt(id));
 
         if(logsRepository.findAll().get(0).getStatus()) {
-            File file = new File("/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt");
+            File file = new File(filePath);
             FileWriter fr = new FileWriter(file, true);
             String output = "Ticket Deleted: userId -> " + ticket.getUserId() + "; ticketId -> " + ticket.getId() + " ----- date -> " + new Date() + "\n";
 
