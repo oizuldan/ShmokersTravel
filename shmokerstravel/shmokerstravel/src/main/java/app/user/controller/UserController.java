@@ -4,8 +4,10 @@ import app.MainApplication;
 import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
 import app.user.LogsRepository;
+import app.user.PaycheckRepository;
 import app.user.UserRepository;
 import app.user.model.Employee;
+import app.user.model.Paycheck;
 import app.user.model.User;
 import app.session.SessionRepository;
 import app.session.model.Session;
@@ -30,6 +32,8 @@ public class UserController {
     TicketRepository ticketRepository;
     @Autowired
     LogsRepository logsRepository;
+    @Autowired
+    PaycheckRepository paycheckRepository;
 
     @CrossOrigin
     @GetMapping("/user")
@@ -206,6 +210,31 @@ public class UserController {
     @PostMapping("/logs/{enabled}")
     public void updateEmployee(@PathVariable String enabled) throws Error{
         logsRepository.updateLogs(Boolean.valueOf(enabled));
+    }
+
+    @CrossOrigin
+    @GetMapping("/getPayChecks")
+    public List<Paycheck> getPayChecks() throws Error{
+        return paycheckRepository.findAll();
+    }
+
+    @CrossOrigin
+    @PostMapping("/payCheck")
+    public boolean createPayCheck(@RequestBody Map<String, String> body) throws Error{
+        Paycheck paycheck = new Paycheck();
+
+        int amount = Integer.parseInt(body.get("amount"));
+        int employeeId = Integer.parseInt(body.get("employeeId"));
+        Date date = new Date();
+
+        paycheck.setAmount(amount);
+        paycheck.setDate(date);
+        paycheck.setUserId(employeeId);
+
+
+
+        paycheckRepository.save(paycheck);
+        return true;
     }
 
     @CrossOrigin
