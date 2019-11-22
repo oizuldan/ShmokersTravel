@@ -16,11 +16,12 @@ const NavBar = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    cookies && cookies.isAuthorized !== "false" && setIsAuthorized(true);
+    cookies.isAuthorized && cookies.isAuthorized !== "false" && setIsAuthorized(true);
   });
 
   const logIn = res => {
-    setCookie("isAuthorized", res.hash, { path: "/" });
+    setCookie("isAuthorized", res[0], { path: "/" });
+    setCookie("isManager", res[1]);
     setIsAuthorized(true);
   };
 

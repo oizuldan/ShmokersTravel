@@ -1,0 +1,18 @@
+.search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px;
+    flex: 1;
+    border: 1px solid #E7E7F2;
+    border-radius: 10px;
+}
+
+.route-change-state {
+    cursor: pointer;
+    margin: 10px 0;
+    font-weight: bold;
+    text-decoration: underline;
+}

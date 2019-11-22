@@ -40,8 +40,8 @@ public class SessionController {
 
     @CrossOrigin
     @DeleteMapping("session/{hash}")
-    public boolean delete(@PathVariable int user_id){
-        sessionRepository.delete(user_id);
+    public boolean delete(@PathVariable String hash){
+        sessionRepository.deleteSession(hash);
         return true;
     }
 

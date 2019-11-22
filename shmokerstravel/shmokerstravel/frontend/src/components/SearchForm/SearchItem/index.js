@@ -9,11 +9,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './index.css';
 
 const TextArea = ({onChange}) => <input type="text" className="search-input" onChange={onChange} spellCheck={false}/>;
-const DateType = ({startDate, onChange}) => <DatePicker
+const DateType = ({startDate, onChange, time}) => <DatePicker
     selected={startDate}
     onChange={onChange}
     className="search-input"
-    dateFormat="MMMM dd, yyyy"
+    dateFormat={time ? "dd/MM/yyyy, hh:mm" : "MMMM dd, yyyy"}
+    showTimeSelect={time}
 />;
 const PassengerSelect = ({onChange}) => <select className="search-input" onChange={onChange}>
     <option value="1">1</option>
@@ -22,7 +23,7 @@ const PassengerSelect = ({onChange}) => <select className="search-input" onChang
     <option value="4">4</option>
 </select>;
 
-const SearchItem = ({placeholder, type, onChange, startDate = new Date()}) => {
+const SearchItem = ({placeholder, type, onChange, startDate = new Date(), time=false}) => {
 
     const RenderType = type === 'text' ? TextArea : (type === 'date' ? DateType : PassengerSelect);
 
@@ -30,7 +31,7 @@ const SearchItem = ({placeholder, type, onChange, startDate = new Date()}) => {
         <img src={type === 'text' ? Departure : (type === 'date' ? Calendar : Passenger)} alt='calendar' className='icon'/>
         <div className='form'>
             <span className="placeholder">{placeholder}</span>
-            <RenderType onChange={onChange} startDate={startDate}/>
+            <RenderType onChange={onChange} startDate={startDate} time={time}/>
         </div>
     </div>)
 };

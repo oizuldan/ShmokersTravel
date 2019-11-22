@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useCookies } from "react-cookie";
+
 import Ticket from "../../components/ticket";
 import Workers from "../../components/Workers";
 
@@ -13,11 +15,27 @@ const Profile = () => {
   const [showRoutes, setShowRoutes] = useState(false);
   const [showTickets, setShowTickets] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [password, setPassword] = useState("");
 
-  const [firstName, setFirstName] = useState("Nursultan");
-  const [secondName, setSecondName] = useState("Akhmetzhanov");
-  const [email] = useState("nurs@gmail.com");
-  const [phone, setPhone] = useState("123456789");
+  const [cookies] = useCookies();
+
+  const [firstName, setFirstName] = useState("");
+  const [secondName, setSecondName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:8080/user/${cookies.isAuthorized}`);
+      const result = await response.json();
+      setFirstName(result.firstName);
+      setSecondName(result.lastName);
+      setEmail(result.email);
+      setPhone(result.phone);
+      setPassword(result.password)
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -68,21 +86,21 @@ const Profile = () => {
       </div>
       <Ticket />
 
-      <Workers
+      {cookies.isManager === "true" && <Workers
         show={showWorkers}
         workers={workers}
         onHide={() => setShowWorkers(false)}
-      />
-      <Routes
+      />}
+      {cookies.isManager === "true" && <Routes
         show={showRoutes}
         workers={workers}
         onHide={() => setShowRoutes(false)}
-      />
-      <TicketModal
+      />}
+      {cookies.isManager === "true" && <TicketModal
         show={showTickets}
         workers={workers}
         onHide={() => setShowTickets(false)}
-      />
+      />}
       <Settings
         onHide={() => setShowSettings(false)}
         show={showSettings}
@@ -92,6 +110,10 @@ const Profile = () => {
         setFirstName={setFirstName}
         setSecondName={setSecondName}
         setPhone={setPhone}
+        hash={cookies.isAuthorized}
+        email={email}
+        setEmail={setEmail}
+        password={password}
       />
     </div>
   );
