@@ -4,10 +4,22 @@ import "./index.css";
 import { stations } from "../../constants/stations";
 import Button from "../../components/Button";
 import Map from "../../components/Map";
+import ScheduleModal from "../../components/Schedule";
 
 const Schedule = () => {
   const [station, setStation] = useState(stations[0].name);
   const [showMap, setShowMap] = useState(false);
+  const [results, setResults] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const onClick = async () => {
+    const response = await fetch(
+        `http://localhost:8080/tripsOnStation?name=${station}`
+    );
+    const result = await response.json();
+    setResults(result);
+    setShowModal(true);
+  };
 
   return (
     <div className="schedule-main">
@@ -37,8 +49,10 @@ const Schedule = () => {
             onStationClick={(station) => setStation(station)}
           />
         )}
-        <Button text="Show schedule" className="schedule-button" />
+        <Button text="Show schedule" className="schedule-button" onClick={onClick}/>
       </div>
+
+      <ScheduleModal show={showModal} onHide={() => setShowModal(false)} results={results} station={station}/>
     </div>
   );
 };

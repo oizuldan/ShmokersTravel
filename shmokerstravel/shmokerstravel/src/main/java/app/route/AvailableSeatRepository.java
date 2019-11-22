@@ -14,17 +14,17 @@ import java.util.List;
 @Repository
 public interface AvailableSeatRepository extends JpaRepository<AvailableSeat, Integer> {
 
-    @Query("select AR.tripId, count(AR.tripId) as available_seats, AR.ticketPrice\n" +
+    @Query("select AR.tripId, count(AR.tripId) as available_seats, AR.ticketPrice, S1.departureDate, S2.arrivalDate\n" +
             "from TripStation S1, TripStation S2, AvailableSeat AR\n" +
             "where S1.tripId = S2.tripId and S1.stationIndex < S2.stationIndex \n" +
             "and S1.tripId = AR.tripId\n" +
             "and S1.trainStationName = :from and S2.trainStationName = :to \n" +
             "and AR.fromStation >= S1.stationIndex and AR.toStation <= S2.stationIndex\n" +
             "and AR.date >= :date and AR.date <= :dateLimit\n" +
-            "group by AR.tripId, AR.ticketPrice")
+            "group by AR.tripId, AR.ticketPrice, S1.departureDate, S2.arrivalDate")
     List<Object[]> findByFromStationAndToStation(@Param("from") String from, @Param("to") String to, @Param("date") Date date, @Param("dateLimit") Date dateLimit);
 
-    @Query("select AR.trainNumber, AR.vagonNumber, AR.seatNumber, S1.departureDate, S2.arrivalDate\n" +
+    @Query("select AR.trainNumber, AR.vagonNumber, AR.seatNumber, S1.departureDate, S2.arrivalDate, AR.toStation, AR.fromStation\n" +
             "from TripStation S1, TripStation S2, AvailableSeat AR\n" +
             "where S1.tripId = :id and S1.stationIndex < S2.stationIndex \n" +
             "and AR.tripId = :id\n" +

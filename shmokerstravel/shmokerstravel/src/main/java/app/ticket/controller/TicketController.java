@@ -5,7 +5,7 @@ import app.route.model.AvailableSeat;
 import app.session.SessionRepository;
 import app.ticket.TicketRepository;
 import app.ticket.model.Ticket;
-import javafx.util.Pair;
+//import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

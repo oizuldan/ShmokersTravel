@@ -15,21 +15,22 @@ const NavBar = () => {
   const [cookies, setCookie] = useCookies(["isAuthorized"]);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
+  useEffect(() => {
+    cookies && cookies.isAuthorized !== "false" && setIsAuthorized(true);
+  });
+
   const logIn = res => {
     setCookie("isAuthorized", res.hash, { path: "/" });
     setIsAuthorized(true);
   };
 
-  const logOut = () => {
-    setCookie("isAuthorized", false, { path: "/" });
-    setIsAuthorized(false);
+  const logOut = async () => {
+      await fetch(`http://localhost:8080/session/${cookies.isAuthorized}`, {
+        method: "DELETE",
+      });
+      setCookie("isAuthorized", false, { path: "/" });
+      setIsAuthorized(false);
   };
-
-  useEffect(() => {
-    cookies.isAuthorized &&
-      cookies.isAuthorized !== "false" &&
-      logIn({ hash: "12321" });
-  });
 
   return (
     <nav className="navbar">

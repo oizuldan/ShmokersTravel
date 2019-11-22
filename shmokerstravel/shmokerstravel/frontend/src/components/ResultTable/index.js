@@ -27,13 +27,15 @@ const ResultTable = ({
         />
       </div>
       <div className="results">
-        {results.map((res, index) => (
+        {results.filter(res => res[1] >= Number(passengers)).length ? results.map((res, index) => (
           <ResultInfo
-            res={{ ...res, passengers }}
+            res={res}
             key={index}
             passengers={passengers}
+            depCity={depCity}
+            arrCity={arrCity}
           />
-        ))}
+        )) : <h2>No results found</h2>}
       </div>
     </div>
   );

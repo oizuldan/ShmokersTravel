@@ -387,7 +387,7 @@ public class TripController {
     }
 
     @CrossOrigin
-    @GetMapping("/tripsOnStation")
+    @GetMapping("/na")
     public List<Object[]> getTripsOnStation(@RequestParam(name = "name") String name) {
 
         return tripStationRepository.findTripsOnStation(name);

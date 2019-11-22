@@ -5,26 +5,26 @@ import ResultTable from "../../components/ResultTable";
 
 import "./index.css";
 
-const resultsMock = [
-  {
-    departureTrainStationName: "Nur-Sultan",
-    arrivalTrainStationName: "Almaty",
-    departureDateTime: new Date(),
-    arrivalDateTime: new Date(),
-    avlbSeats: 100,
-    id: "125NM",
-    price: 10000
-  },
-  {
-    departureTrainStationName: "Nur-Sultan",
-    arrivalTrainStationName: "Almaty",
-    departureDateTime: new Date(),
-    arrivalDateTime: new Date(),
-    avlbSeats: 100,
-    id: "125NM",
-    price: 10040
-  }
-];
+// const resultsMock = [
+//   {
+//     departureTrainStationName: "Nur-Sultan",
+//     arrivalTrainStationName: "Almaty",
+//     departureDateTime: new Date(),
+//     arrivalDateTime: new Date(),
+//     avlbSeats: 100,
+//     id: "125NM",
+//     price: 10000
+//   },
+//   {
+//     departureTrainStationName: "Nur-Sultan",
+//     arrivalTrainStationName: "Almaty",
+//     departureDateTime: new Date(),
+//     arrivalDateTime: new Date(),
+//     avlbSeats: 100,
+//     id: "125NM",
+//     price: 10040
+//   }
+// ];
 
 const Main = () => {
   const [showResults, setShowResults] = useState(false);
@@ -35,8 +35,12 @@ const Main = () => {
   const [passengers, setPassengers] = useState(1);
 
   const onSearchClick = async () => {
+    const depDate = date;
+    depDate.setHours(0 ,0, 0, 0);
+    const arrDate = new Date(date);
+    arrDate.setHours(23, 59, 0, 0);
     const response = await fetch(
-      `http://localhost:8080/route?departure=${departure.trim()}&arrival=${arrival.trim()}`
+      `http://localhost:8080/availableTrip?from=${departure.trim()}&to=${arrival.trim()}&date=${depDate.getTime()}&dateLimit=${arrDate.getTime()}`
     );
     const result = await response.json();
     setResult(result);
@@ -59,7 +63,7 @@ const Main = () => {
             date={date}
             passengers={passengers}
             onClick={onBackClick}
-            results={resultsMock}
+            results={results}
           />
         ) :  (
           <>

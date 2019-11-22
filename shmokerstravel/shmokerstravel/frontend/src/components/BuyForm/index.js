@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import "./index.css";
 import Button from "../Button";
 
-const BuyForm = ({ seats, tickets, index }) => {
+const BuyForm = ({ result, tickets, index }) => {
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
-  const [seat, setSeat] = useState(1);
+  const [seat, setSeat] = useState(result[0][2]);
   const [disabled, setDisabled] = useState(false);
 
   const onConfirmClick = () => {
@@ -52,8 +52,8 @@ const BuyForm = ({ seats, tickets, index }) => {
           className="buy-form-input"
           disabled={disabled}
         >
-          {seats.map(seat => (
-            <option key={seat}>{seat}</option>
+          {result.map(res => (
+            <option key={res[2]}>{res[2]}</option>
           ))}
         </select>
       </div>
