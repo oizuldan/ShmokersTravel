@@ -1,1 +1,4 @@
-
+User LoggedIn: userId -> 7 ----- date -> Thu Nov 28 16:04:33 ALMT 2019
+Ticket Created: userId -> 7; ticketId -> 0 ----- date -> Thu Nov 28 16:05:29 ALMT 2019
+Ticket Created: userId -> 7; ticketId -> 0 ----- date -> Thu Nov 28 16:05:29 ALMT 2019
+Ticket Created: userId -> 7; ticketId -> 0 ----- date -> Thu Nov 28 16:05:29 ALMT 2019

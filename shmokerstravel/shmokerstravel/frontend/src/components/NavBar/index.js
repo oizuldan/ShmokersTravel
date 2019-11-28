@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { Link } from "react-router-dom";
+import { Link, useHistory,  } from "react-router-dom";
 
 import Login from "../Login";
 import SignUp from "../SignUp";
@@ -30,6 +30,8 @@ const NavBar = () => {
         method: "DELETE",
       });
       setCookie("isAuthorized", false, { path: "/" });
+      setCookie("isManager", false, { path: "/" });
+      setCookie("isAgent", false, { path: "/" });
       setIsAuthorized(false);
   };
 

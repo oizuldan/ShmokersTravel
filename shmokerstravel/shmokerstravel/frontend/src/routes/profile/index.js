@@ -7,25 +7,25 @@ import Workers from "../../components/Workers";
 import "./index.css";
 import Button from "../../components/Button";
 import Routes from "../../components/Routes";
-import TicketModal from "../../components/TicketModal";
 import Settings from "../../components/Settings";
+import Payments from "./payments";
 
 const Profile = () => {
   const [showWorkers, setShowWorkers] = useState(false);
   const [showRoutes, setShowRoutes] = useState(false);
-  const [showTickets, setShowTickets] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showPayments, setShowPayments] = useState(false);
   const [password, setPassword] = useState("");
   const [tickets, setTickets] = useState([]);
 
-  const [cookies, setCookie] = useCookies();
+  const [cookies] = useCookies();
   const [isAgent, setAgent] = useState(false);
-  const [isManager, setManager] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [logs, setLogs] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,15 +41,25 @@ const Profile = () => {
       const result2 = await response2.json();
       result2.forEach(res => {
         if(res.employeeId === result.id)
-          setCookie(isAgent, true, {path: '/'});
+          setAgent(true);
       });
+      const response4 = await fetch(`http://localhost:8080/logs`);
+      const result4 = await response4.json();
+      setLogs(result4);
 
       const response3 = await fetch(`http://localhost:8080/getTickets/${result.id}`);
       const result3 = await response3.json();
       setTickets(result3);
+
     };
     fetchData();
   }, []);
+
+  const getUserTickets = async () => {
+    const response3 = await fetch(`http://localhost:8080/getAllTickets`);
+    const result3 = await response3.json();
+    setTickets(result3);
+  };
 
   return (
     <div>
@@ -80,6 +90,11 @@ const Profile = () => {
           <div className="profile-key">Phone:</div>
           <div className="profile-value">{phone}</div>
         </div>
+        {cookies.isManager === "true" &&
+            <>
+          <div className="profile-key">Logs:</div>
+              <div className="profile-value" >{logs[1]}</div>
+          </>}
         <div className="profile-buttons">
           {cookies.isManager === "true" && <Button
             text="Show Workers"
@@ -91,28 +106,34 @@ const Profile = () => {
             className="profile-button"
             onClick={() => setShowRoutes(true)}
           />}
-          {cookies.isAgent === "true" && <Button
+          {cookies.isManager === "true" && <Button
+              text="Pay Checks"
+              className="profile-button"
+              onClick={() => setShowPayments(true)}
+          />}
+          {isAgent && <Button
             text="Manage Tickets"
             className="profile-button"
-            onClick={() => setShowTickets(true)}
+            onClick={() => getUserTickets()}
           />}
         </div>
       </div>
+      <h1 className="ticket-title">Tickets</h1>
       {tickets.map((ticket, index) => <Ticket key={index} ticket={ticket}/>)}
 
-      <Workers
+      {cookies.isManager === "true" &&<Workers
+          hash={cookies.isAuthorized}
           show={showWorkers}
-          workers={workers}
           onHide={() => setShowWorkers(false)}
-      />
-      <Routes
+      />}
+      {cookies.isManager === "true" && <Routes
           show={showRoutes}
           onHide={() => setShowRoutes(false)}
-      />
-      <TicketModal
-          show={showTickets}
-          onHide={() => setShowTickets(false)}
-      />
+      />}
+      {cookies.isManager === "true" && <Payments
+          show={showPayments}
+          onHide={() => setShowPayments(false)}
+      />}
 
       <Settings
         onHide={() => setShowSettings(false)}
@@ -131,38 +152,5 @@ const Profile = () => {
     </div>
   );
 };
-
-const workers = [
-  {
-    id: 1,
-    firstName: "Nurs",
-    secondName: "Akhmetzhanov",
-    salary: 9
-  },
-  {
-    id: 2,
-    firstName: "Nurs",
-    secondName: "Akhmetzhanov",
-    salary: 9
-  },
-  {
-    id: 3,
-    firstName: "Nurs",
-    secondName: "Akhmetzhanov",
-    salary: 9
-  },
-  {
-    id: 4,
-    firstName: "Nurs",
-    secondName: "Akhmetzhanov",
-    salary: 9
-  },
-  {
-    id: 5,
-    firstName: "Nurs",
-    secondName: "Akhmetzhanov",
-    salary: 9
-  }
-];
 
 export default Profile;

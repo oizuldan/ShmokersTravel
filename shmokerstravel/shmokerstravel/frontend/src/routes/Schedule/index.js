@@ -14,7 +14,7 @@ const Schedule = () => {
 
   const onClick = async () => {
     const response = await fetch(
-        `http://localhost:8080/tripsOnStation?name=${station}`
+        `http://localhost:8080/na?name=${station}`
     );
     const result = await response.json();
     setResults(result);

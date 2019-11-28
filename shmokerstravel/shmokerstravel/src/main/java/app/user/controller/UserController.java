@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     PaycheckRepository paycheckRepository;
     
-    private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
+    private String filePath = "/Users/nursultan/Desktop/proj/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
 
     @CrossOrigin
     @GetMapping("/user")
@@ -98,11 +98,14 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping("/logs")
-    public String getLogs() throws IOException {
+    public List<String> getLogs() throws IOException {
 
         String content = new String ( Files.readAllBytes( Paths.get(filePath) ) );
+        List<String> ans = new ArrayList<>();
+        ans.add("Logs");
+        ans.add(content);
 
-        return content;
+        return ans;
     }
 
     @CrossOrigin
@@ -172,6 +175,7 @@ public class UserController {
     @PostMapping("/employee/update")
     public boolean updateEmployee(@RequestBody Map<String, String> body) throws Error, IOException {
 
+        System.out.println(body);
         String hash = body.get("hash");
         int employeeId = Integer.parseInt(body.get("employeeId"));
         int salary = Integer.parseInt(body.get("salary"));

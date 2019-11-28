@@ -1,7 +1,7 @@
 .the-main-ticket {
     width: 80%;
     height: 100%;
-    margin: 0 auto;
+    margin: 10px auto;
     border-radius: 15px;
     background: rgba(192, 189, 189, 0.6);
     display: flex;

@@ -29,8 +29,14 @@ public class TicketController {
     @Autowired
     LogsRepository logsRepository;
 
-    private String filePath = "/Users/icett/Desktop/NU/3year_1stSem/SWE/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
+    private String filePath = "/Users/nursultan/Desktop/proj/ShmokersTravel/shmokerstravel/shmokerstravel/logs.txt";
 
+
+    @CrossOrigin
+    @GetMapping("/getAllTickets")
+    public List<Ticket> getAllTickets(){
+        return ticketRepository.findAll();
+    }
 
     @CrossOrigin
     @GetMapping("/getTickets/{userId}")
@@ -43,7 +49,6 @@ public class TicketController {
     public Ticket createTicket(@RequestBody Map<String, String> body) throws Error, ParseException, IOException {
         int price = Integer.parseInt(body.get("price"));
         String hash = body.get("hash");
-        int userIdd = Integer.parseInt(body.get("userId"));
         String departureTrainStationName = body.get("departureTrainStationName");
         String arrivalTrainStationName = body.get("arrivalTrainStationName");
         int seatNumber = Integer.parseInt(body.get("seatNumber"));
@@ -58,18 +63,16 @@ public class TicketController {
         Date departureDate = new Date(Long.parseLong(body.get("departureDate")));
 
         Ticket ticket = new Ticket();
-
-        int userId = 0;
-        if(hash != null){
+    int userId = 0;
             try{
                 userId = sessionRepository.getUserId(hash);
             } catch (Error error) {
                 throw new Error("unauthorized user");
             }
-        }
 
 
-        ticket.setUserId(userId == 0 ? userIdd : userId);
+
+        ticket.setUserId(userId);
         ticket.setArrivalDate(arrivalDate);
         ticket.setDepartureDate(departureDate);
         ticket.setArrivalTrainStationName(arrivalTrainStationName);

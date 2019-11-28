@@ -84,7 +84,7 @@ const Routes = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide} size="xl">
       <Modal.Body>
-        <div className="modal-title">Workers</div>
+        <div className="modal-title">Routes</div>
         <div
           onClick={() => setCurrent(curr => (curr === "add" ? "show" : "add"))}
           className="route-change-state"

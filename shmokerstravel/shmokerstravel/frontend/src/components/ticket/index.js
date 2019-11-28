@@ -28,7 +28,6 @@ const Ticket = ({
     };
   return (
     <div>
-      <h1 className="ticket-title">Tickets</h1>
       <div className="the-main-ticket">
         <div className="ticket-train">
           <div className="ticket-text">
@@ -46,7 +45,7 @@ const Ticket = ({
           <div className="ticket-text">
             Price: <span className="ticket-price">{price} tg</span>
           </div>
-            {departureDate < new Date().getTime() &&
+            {departureDate > new Date().getTime() &&
                 <div className="route-change-state" onClick={returnTicket}>
                     Return ticket
                 </div>
